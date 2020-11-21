@@ -1,4 +1,4 @@
-import algorithms.AStarPathFinding;
+import algorithms.AStar;
 import algorithms.ModifiedBFS;
 import algorithms.PathFinder;
 
@@ -15,7 +15,7 @@ public class Runner {
     private static String getResults() {
         String result = "";
         result += String.format("%15s %15s %15s %15s %15s\n", "Algorithm", "Average", "Fastest", "Slowest", "Total");
-        result += formatResults("A*", runTrials(new AStarPathFinding()));
+        result += formatResults("A*", runTrials(new AStar()));
         result += formatResults("Modified BFS", runTrials(new ModifiedBFS()));
         return result;
     }

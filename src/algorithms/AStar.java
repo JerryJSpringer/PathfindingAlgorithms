@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 /**
  * Implements A* path-finding.
  */
-public class AStarPathFinding implements PathFinder {
+public class AStar implements PathFinder {
 
     private final int NONDIAGONAL_COST = 10;
     private final int DIAGONAL_COST = 14;
@@ -18,7 +18,7 @@ public class AStarPathFinding implements PathFinder {
     /**
      * Constructor for A* path finding.
      */
-    public AStarPathFinding() {
+    public AStar() {
     }
 
     /**
