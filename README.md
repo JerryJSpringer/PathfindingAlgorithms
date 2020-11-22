@@ -9,7 +9,8 @@ A collection of pathfinding algorithms and comparisons between them.
     - Very efficient but not optimal
   - Dynamic SWSF-FP (Strict Weak Superior Function - Fixed Point)
     - Frontloads runtime at initialization
-    - An implementation of what is sometimes known as a Dijkstra Map
+    - Implementation of Djikstra Map
+    - Much slower init time for faster run time
 
 ### Planned
    - D* (Dynamic A*) / Focused D* / D*-Lite
