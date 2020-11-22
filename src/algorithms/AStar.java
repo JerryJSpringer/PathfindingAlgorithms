@@ -1,6 +1,5 @@
 package algorithms;
 
-import java.util.HashSet;
 import java.util.PriorityQueue;
 
 /**
@@ -12,8 +11,10 @@ public class AStar implements PathFinder {
     private final int DIAGONAL_COST = 14;
     
     private int[][] mMap;
+    private Node[][] mNodes;
     private boolean[][] mClosed;
-    private PriorityQueue<Node> mOpen;
+    private boolean[][] mOpen;
+    private PriorityQueue<Node> mQueue;
 
     /**
      * Constructor for A* path finding.
@@ -27,22 +28,26 @@ public class AStar implements PathFinder {
      */
     public void init(int[][] map) {
         mMap = map;
+        mNodes = new Node[map.length][map.length];
         mClosed = new boolean[map.length][map.length];
-        mOpen = new PriorityQueue<>();
+        mOpen = new boolean[map.length][map.length];
+        mQueue = new PriorityQueue<>();
     }
 
     @Override
     public int[][] findPath(int x1, int y1, int x2, int y2) {
 
         // Add the start node to the open list
-        mOpen.add(new Node(x1, y1));
+        mNodes[x1][y1] = new Node(x1, y1);
+        mQueue.add(mNodes[x1][y1]);
+        mOpen[x1][y1] = true;
 
         // The current node
         Node current;
 
-        while (mOpen.size() != 0) {
-            // Remove least ranked node from open and adds to closed
-            current = mOpen.remove();
+        while (mQueue.size() != 0) {
+            // Remove least ranked node from open
+            current = mQueue.remove();
 
             // If we are at our goal then break
             if (current.x == x2 && current.y == y2)
@@ -65,22 +70,29 @@ public class AStar implements PathFinder {
                     if (isValid(current.x, current.y, xn, yn)) {
                         // Get the cost to move to the new node
                         int cost = current.cost + getCost(dx, dy);
+
                         // Make a new node
-                        Node neighbor = new Node(xn, yn);
+                        Node neighbor = mNodes[xn][yn];
+                        if (neighbor == null) {
+                            neighbor = new Node(xn, yn);
+                            mNodes[xn][yn] = neighbor;
+                        }
 
                         // New path is better than the old path
                         if (cost < neighbor.cost) {
-                            mOpen.remove(neighbor);
+                            mQueue.remove(neighbor);
+                            mOpen[xn][yn] = false;
                             mClosed[xn][yn] = false;
                         }
 
                         // Node has not been added to open or closed
                         // Add it as potential node in path
-                        if (!mOpen.contains(neighbor) && !mClosed[xn][yn]) {
+                        if (!mOpen[xn][yn] && !mClosed[xn][yn]) {
                             neighbor.cost = cost;
                             neighbor.heuristic = getHeuristic(xn, yn, x2, y2);
-                            mOpen.add(neighbor);
-                            neighbor.setParent(current);
+                            mQueue.add(neighbor);
+                            mOpen[xn][yn] = true;
+                            neighbor.parent = current;
                         }
                     }
                 }
@@ -127,7 +139,10 @@ public class AStar implements PathFinder {
         int dx = Math.abs(x1 - x2);
         int dy = Math.abs(y1 - y2);
 
-        return DIAGONAL_COST * (dx + dy);
+        if (dx > dy)
+            return (NONDIAGONAL_COST * (dx - dy) + DIAGONAL_COST * dy);
+        else
+            return (NONDIAGONAL_COST * (dy - dx) + DIAGONAL_COST * dx);
     }
 
     /**
@@ -177,7 +192,6 @@ public class AStar implements PathFinder {
     private class Node implements Comparable {
         private int x;
         private int y;
-        private int depth;
         private int cost;
         private int heuristic;
         private Node parent;
@@ -191,18 +205,6 @@ public class AStar implements PathFinder {
         Node(int x, int y) {
             this.x = x;
             this.y = y;
-        }
-
-        /**
-         * Sets the parent of the node.
-         *
-         * @param parent The node that leads to this node.
-         * @return The depth required to reach this node.
-         */
-        int setParent(Node parent) {
-            this.parent = parent;
-            depth = parent.depth + 1;
-            return depth;
         }
 
         @Override
