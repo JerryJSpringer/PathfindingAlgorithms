@@ -5,7 +5,7 @@ A collection of pathfinding algorithms and comparisons between them.
 ### Implemented
   - A*
     - Fairly efficient with optimal path
-  - BFS (Breadth First Search)
+  - Breadth First Search
     - Very efficient but not optimal
   - Dynamic SWSF-FP (Strict Weak Superior Function - Fixed Point)
     - Frontloads runtime at initialization
