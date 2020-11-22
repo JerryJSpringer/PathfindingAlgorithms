@@ -1,12 +1,12 @@
 import algorithms.AStar;
 import algorithms.DynamicSWSFFP;
-import algorithms.ModifiedBFS;
+import algorithms.BreadthFirstSearch;
 import algorithms.PathFinder;
 
 public class Runner {
 
-    private static final int SIZE = 200;
-    private static final int SEED = 20030;
+    private static final int SIZE = 500;
+    private static final int SEED = 6505539;
     private static final int TRIALS = 100;
 
     public static void main(String[] args) {
@@ -15,17 +15,19 @@ public class Runner {
 
     private static String getResults() {
         String result = "";
-        result += String.format("%15s %15s %15s %15s %15s %15s %15s %15s %15s\n",
+        result += String.format("|%20s| %15s| %15s| %15s| %15s| %15s| %15s| %15s| %15s|\n",
                 "Algorithm", "Init Average", "Average Run", "Fastest Run",
                 "Slowest Run", "Total", "Size", "Attempts", "Successes");
+        result += "|--------------------|----------------|----------------|----------------|------";
+        result += "----------|----------------|----------------|----------------|----------------|\n";
         result += formatResults("A*", runTrials(new AStar()));
-        result += formatResults("Modified BFS", runTrials(new ModifiedBFS()));
+        result += formatResults("Breadth First Search", runTrials(new BreadthFirstSearch()));
         result += formatResults("Dynamic SWSF-FP", runTrials(new DynamicSWSFFP()));
         return result;
     }
 
     private static String formatResults(String name, Results results) {
-        return String.format("%15s %15d %15d %15d %15d %15d %15d %15d %15d\n",
+        return String.format("|%20s| %15d| %15d| %15d| %15d| %15d| %15d| %15d| %15d|\n",
                 name,
                 results.getInitialization() / TRIALS,
                 results.getRun() / TRIALS,

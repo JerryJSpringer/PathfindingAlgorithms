@@ -3,13 +3,13 @@ package algorithms;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class ModifiedBFS implements PathFinder{
+public class BreadthFirstSearch implements PathFinder{
 
     private int[][] mMap;
     private boolean[][] mVisited;
     private Queue<Node> mQueue;
 
-    public ModifiedBFS() {
+    public BreadthFirstSearch() {
     }
 
     public void init(int[][] map, int x1, int y1, int x2, int y2) {
