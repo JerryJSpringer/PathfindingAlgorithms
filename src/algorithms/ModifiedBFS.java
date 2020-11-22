@@ -6,40 +6,34 @@ import java.util.Queue;
 public class ModifiedBFS implements PathFinder{
 
     private int[][] mMap;
-
+    private boolean[][] mVisited;
+    private Queue<Node> mQueue;
 
     public ModifiedBFS() {
     }
 
-    public void init(int[][] map) {
+    public void init(int[][] map, int x1, int y1, int x2, int y2) {
         this.mMap = map;
+        mVisited = new boolean[mMap.length][mMap[0].length];
+        mQueue = new LinkedList<>();
     }
 
     public int[][] findPath(int x1, int y1, int x2, int y2) {
 
-        // Sets up an array to keep track of visited nodes
-        boolean[][] visited = new boolean[mMap.length][mMap[0].length];
-
         // Mark the starting point
-        visited[x1][y1] = true;
-
-        // Creating the BFS queue
-        Queue<Node> queue = new LinkedList<>();
+        mVisited[x1][y1] = true;
 
         // Distance from the start is 0
-        queue.add(new Node(x1, y1));
+        mQueue.add(new Node(x1, y1));
 
         // Perform BFS from start
-        while (!queue.isEmpty()) {
-            Node current = queue.peek();
+        while (!mQueue.isEmpty()) {
+            Node current = mQueue.remove();
 
             // If destination finish
             if (current.x == x2 && current.y == y2)
                 return traceMap(current);
 
-            // Dequeue front index
-            // Enqueue adjacent index
-            queue.remove();
             // Search through neighbors of current
             for (int dx = -1; dx < 2; dx++) {
                 for (int dy = -1; dy < 2; dy++) {
@@ -50,14 +44,14 @@ public class ModifiedBFS implements PathFinder{
                     int xn = current.x + dx;
                     int yn = current.y + dy;
 
-                    if (isValid(current.x, current.y, xn, yn) && !visited[xn][yn]) {
+                    if (isValid(current.x, current.y, xn, yn) && !mVisited[xn][yn]) {
                         // Set that it has been visited
-                        visited[xn][yn] = true;
+                        mVisited[xn][yn] = true;
 
                         // Add to queue
                         Node adjacentNode = new Node(xn, yn);
                         adjacentNode.parent = current;
-                        queue.add(adjacentNode);
+                        mQueue.add(adjacentNode);
                     }
                 }
             }
