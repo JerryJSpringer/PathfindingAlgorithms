@@ -2,6 +2,7 @@ class Results {
     private long fastest;
     private long slowest;
     private long total;
+    private int success;
 
     Results() {
         fastest = Long.MAX_VALUE;
@@ -30,5 +31,13 @@ class Results {
 
     long getTotal() {
         return total;
+    }
+
+    void addSuccess() {
+        success++;
+    }
+
+    int getSuccess() {
+        return success;
     }
 }
