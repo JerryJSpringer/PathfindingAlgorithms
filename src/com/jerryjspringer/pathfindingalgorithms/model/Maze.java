@@ -1,16 +1,18 @@
+package com.jerryjspringer.pathfindingalgorithms.model;
+
 import java.util.Random;
 
-class Maze {
+public class Maze {
 
     private static final float OBJECT_CHANCE = .2f;
     private int[][] mMap;
     private int size;
 
-    Maze(int size) {
+    public Maze(int size) {
         this.size = size;
     }
 
-    void makeMap(int seed) {
+    public void makeMap(int seed) {
         mMap = new int[size][size];
         Random random = new Random(seed);
 
@@ -25,14 +27,14 @@ class Maze {
         mMap[size - 1][size - 1] = 0;
     }
 
-    int[][] getMap() {
+    public int[][] getMap() {
         int [][] newMap = new int[mMap.length][];
         for(int i = 0; i < mMap.length; i++)
             newMap[i] = mMap[i].clone();
         return newMap;
     }
 
-    static void displayMap(int[][] map) {
+    public static void displayMap(int[][] map) {
         if (map == null) {
             System.out.println("Map is null");
             return;

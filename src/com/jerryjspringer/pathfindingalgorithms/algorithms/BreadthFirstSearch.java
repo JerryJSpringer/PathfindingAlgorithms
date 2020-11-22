@@ -1,4 +1,4 @@
-package algorithms;
+package com.jerryjspringer.pathfindingalgorithms.algorithms;
 
 import java.util.LinkedList;
 import java.util.Queue;

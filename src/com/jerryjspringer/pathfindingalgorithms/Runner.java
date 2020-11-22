@@ -1,7 +1,11 @@
-import algorithms.AStar;
-import algorithms.DynamicSWSFFP;
-import algorithms.BreadthFirstSearch;
-import algorithms.PathFinder;
+package com.jerryjspringer.pathfindingalgorithms;
+
+import com.jerryjspringer.pathfindingalgorithms.algorithms.AStar;
+import com.jerryjspringer.pathfindingalgorithms.algorithms.DynamicSWSFFP;
+import com.jerryjspringer.pathfindingalgorithms.algorithms.BreadthFirstSearch;
+import com.jerryjspringer.pathfindingalgorithms.algorithms.PathFinder;
+import com.jerryjspringer.pathfindingalgorithms.model.Maze;
+import com.jerryjspringer.pathfindingalgorithms.model.Results;
 
 public class Runner {
 

@@ -1,56 +1,58 @@
-class Results {
+package com.jerryjspringer.pathfindingalgorithms.model;
+
+public class Results {
     private long fastest;
     private long slowest;
     private long initialization;
     private long run;
     private int success;
 
-    Results() {
+    public Results() {
         fastest = Long.MAX_VALUE;
         slowest = Long.MIN_VALUE;
     }
 
-    void setFastest(long fastest) {
+    public void setFastest(long fastest) {
         this.fastest = fastest;
     }
 
-    long getFastest() {
+    public long getFastest() {
         return fastest;
     }
 
-    void setSlowest(long slowest) {
+    public void setSlowest(long slowest) {
         this.slowest = slowest;
     }
 
-    long getSlowest() {
+    public long getSlowest() {
         return slowest;
     }
 
-    void addRun(long time) {
+    public void addRun(long time) {
         run += time;
     }
 
-    long getRun() {
+    public long getRun() {
         return run;
     }
 
-    long getTotal() {
+    public long getTotal() {
         return initialization + run;
     }
 
-    void addInitialization(long time) {
+    public void addInitialization(long time) {
         initialization += time;
     }
 
-    long getInitialization() {
+    public long getInitialization() {
         return initialization;
     }
 
-    void addSuccess() {
+    public void addSuccess() {
         success++;
     }
 
-    int getSuccess() {
+    public int getSuccess() {
         return success;
     }
 }
