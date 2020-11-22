@@ -26,11 +26,11 @@ public class AStar implements PathFinder {
      * Initializes the class to solve an instance of a shortest path problem.
      * @param map The map that could contain a shortest path problem.
      */
-    public void init(int[][] map) {
+    public void init(int[][] map, int x1, int y1, int x2, int y2) {
         mMap = map;
-        mNodes = new Node[map.length][map.length];
-        mClosed = new boolean[map.length][map.length];
-        mOpen = new boolean[map.length][map.length];
+        mNodes = new Node[map.length][map[0].length];
+        mClosed = new boolean[map.length][map[0].length];
+        mOpen = new boolean[map.length][map[0].length];
         mQueue = new PriorityQueue<>();
     }
 
