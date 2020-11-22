@@ -1,12 +1,13 @@
 import algorithms.AStar;
+import algorithms.DynamicSWSFFP;
 import algorithms.ModifiedBFS;
 import algorithms.PathFinder;
 
 public class Runner {
 
-    private static final int SIZE = 500;
-    private static final int SEED = 126005;
-    private static final int TRIALS = 1000;
+    private static final int SIZE = 200;
+    private static final int SEED = 20030;
+    private static final int TRIALS = 100;
 
     public static void main(String[] args) {
         System.out.print(getResults());
@@ -14,17 +15,20 @@ public class Runner {
 
     private static String getResults() {
         String result = "";
-        result += String.format("%15s %15s %15s %15s %15s %15s %15s %15s\n",
-                "Algorithm", "Average", "Fastest", "Slowest", "Total", "Size", "Attempts", "Successes");
+        result += String.format("%15s %15s %15s %15s %15s %15s %15s %15s %15s\n",
+                "Algorithm", "Init Average", "Average Run", "Fastest Run",
+                "Slowest Run", "Total", "Size", "Attempts", "Successes");
         result += formatResults("A*", runTrials(new AStar()));
         result += formatResults("Modified BFS", runTrials(new ModifiedBFS()));
+        result += formatResults("Dynamic SWSF-FP", runTrials(new DynamicSWSFFP()));
         return result;
     }
 
     private static String formatResults(String name, Results results) {
-        return String.format("%15s %15d %15d %15d %15d %15d %15d %15d\n",
+        return String.format("%15s %15d %15d %15d %15d %15d %15d %15d %15d\n",
                 name,
-                results.getTotal() / TRIALS,
+                results.getInitialization() / TRIALS,
+                results.getRun() / TRIALS,
                 results.getFastest(),
                 results.getSlowest(),
                 results.getTotal(),
@@ -42,8 +46,13 @@ public class Runner {
             maze.makeMap(SEED + i);
             map = maze.getMap();
 
-            pathFinder.init(map);
             long time = System.currentTimeMillis();
+            pathFinder.init(map, 0, 0, SIZE - 1, SIZE - 1);
+            time = System.currentTimeMillis() - time;
+
+            results.addInitialization(time);
+
+            time = System.currentTimeMillis();
             map = pathFinder.findPath(0, 0, SIZE - 1, SIZE - 1);
             time = System.currentTimeMillis() - time;
 
@@ -57,7 +66,7 @@ public class Runner {
                     results.setFastest(time);
             }
 
-            results.addTotal(time);
+            results.addRun(time);
         }
 
         return results;
