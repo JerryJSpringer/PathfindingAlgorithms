@@ -1,7 +1,8 @@
 class Results {
     private long fastest;
     private long slowest;
-    private long total;
+    private long initialization;
+    private long run;
     private int success;
 
     Results() {
@@ -25,12 +26,24 @@ class Results {
         return slowest;
     }
 
-    void addTotal(long time) {
-        total += time;
+    void addRun(long time) {
+        run += time;
+    }
+
+    long getRun() {
+        return run;
     }
 
     long getTotal() {
-        return total;
+        return initialization + run;
+    }
+
+    void addInitialization(long time) {
+        initialization += time;
+    }
+
+    long getInitialization() {
+        return initialization;
     }
 
     void addSuccess() {
