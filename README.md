@@ -28,7 +28,7 @@ A collection of pathfinding algorithms and comparisons between them.
 
 # Comparisons
 
-|           Algorithm|    Average Init|     Average Run|         Fastest|         Slowest|           Total|            Size|        Attempts|       Successes|
+|           Algorithm|       Avg. Init|        Avg. Run|         Fastest|         Slowest|           Total|            Size|        Attempts|       Successes|
 |--------------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|----------------|
 |                  A*|               0|              25|              19|              65|            2632|             500|             100|              86|
 |Breadth First Search|               0|              13|              12|              47|            1403|             500|             100|              86|
